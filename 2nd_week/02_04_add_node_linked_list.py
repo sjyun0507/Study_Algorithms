@@ -27,6 +27,18 @@ class LinkedList:                     # 연결 리스트 전체를 관리하는 
             cur_index += 1            # 현재 인덱스 +1
         return cur                    # 목표 인덱스의 노드 반환
 
+    def add_node(self, index, value):
+        new_node = Node(value)
+        if index == 0:
+            new_node.next = self.head
+            self.head = new_node
+            return
+
+        prev_node = self.get_node(index - 1)
+        next_node = prev_node.next
+        prev_node.next = new_node
+        new_node.next = next_node
+
 # ---- 사용 예시 ----
 linked_list = LinkedList(5)           # 값 5로 시작하는 연결 리스트 생성 → head.data == 5
 linked_list.append(12)                # 끝에 12 추가 → 5 -> 12 구조가 됨
@@ -35,3 +47,6 @@ linked_list.append(8)                # 끝에 12 추가 → 5 -> 12 구조가 �
 
 # -> 5를 들고 있는 노드를 반환해야 합니다!
 print(linked_list.get_node(0).data)   # 0번째 노드(head)의 data 출력 → 5
+
+linked_list.add_node(0, 3)
+linked_list.print_all()
